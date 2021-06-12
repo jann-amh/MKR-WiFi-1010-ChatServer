@@ -1,0 +1,88 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ESPAsyncWebServer-esphome/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated-avr-comp",
+                "C:/Users/janna/.platformio/packages/framework-cmsis/CMSIS/Include",
+                "C:/Users/janna/.platformio/packages/framework-cmsis-atmel/CMSIS/Device/ATMEL",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/variants/mkrwifi1010",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/HID",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/I2S/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SAMD_AnalogCorrection/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SAMD_BootloaderUpdater/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SBU/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SDU/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SFU/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SNU/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SSU/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/USBHost/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/Wire",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ESPAsyncWebServer-esphome/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated-avr-comp",
+                    "C:/Users/janna/.platformio/packages/framework-cmsis/CMSIS/Include",
+                    "C:/Users/janna/.platformio/packages/framework-cmsis-atmel/CMSIS/Device/ATMEL",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/variants/mkrwifi1010",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/HID",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/I2S/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SAMD_AnalogCorrection/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SAMD_BootloaderUpdater/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SBU/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SDU/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SFU/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SNU/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SSU/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/USBHost/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/Wire",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=50101",
+                "ARDUINO_SAMD_MKRWIFI1010",
+                "__SAMD21G18A__",
+                "USE_BQ24195L_PMIC",
+                "USE_ARDUINO_MKR_PIN_LAYOUT",
+                "ARDUINO=10805",
+                "F_CPU=48000000L",
+                "USBCON",
+                "USB_VID=0x2341",
+                "USB_PID=0x8054",
+                "USB_PRODUCT=\"Arduino MKR WiFi 1010\"",
+                "USB_MANUFACTURER=\"Arduino\"",
+                "ARDUINO_ARCH_SAMD",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "C:/Users/janna/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
+            "compilerArgs": [
+                "-mcpu=cortex-m0plus",
+                "-mthumb",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
