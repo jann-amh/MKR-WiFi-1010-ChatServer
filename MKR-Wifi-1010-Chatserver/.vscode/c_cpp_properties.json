@@ -10,7 +10,9 @@
             "includePath": [
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
-                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ESPAsyncWebServer-esphome/src",
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/WiFiNINA/src",
+                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ArduinoBLE/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated-avr-comp",
                 "C:/Users/janna/.platformio/packages/framework-cmsis/CMSIS/Include",
@@ -25,10 +27,10 @@
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SDU/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SFU/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SNU/src",
-                "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SSU/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/USBHost/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/Wire",
+                "C:/Users/janna/.platformio/packages/tool-unity",
                 ""
             ],
             "browse": {
@@ -36,7 +38,9 @@
                 "path": [
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
-                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ESPAsyncWebServer-esphome/src",
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/WiFiNINA/src",
+                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ArduinoBLE/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/cores/arduino/api/deprecated-avr-comp",
                     "C:/Users/janna/.platformio/packages/framework-cmsis/CMSIS/Include",
@@ -51,10 +55,10 @@
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SDU/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SFU/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SNU/src",
-                    "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SSU/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/USBHost/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/Wire",
+                    "C:/Users/janna/.platformio/packages/tool-unity",
                     ""
                 ]
             },

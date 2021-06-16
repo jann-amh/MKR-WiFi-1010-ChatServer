@@ -1,86 +1,159 @@
-#include <Arduino.h>
-#include <ESPAsyncWebServer.h>
-#include <ESP8266WiFi.h>
-#include <WebSocketsServer.h>
-#include <Hash.h>
-#include <ESP8266mDNS.h>
+#include <WiFiNINA.h>
 
-const char* ssid = "ssid";
-const char* password = "password";
+char ssid[] = "Arduino_MKR_WIFI_1010";           // your network SSID (name)
+char pass[] = "ZULUL12345"; // your network password (use for WPA, or use as key for WEP)
+int keyIndex = 0;           // your network key Index number (needed only for WEP)
 
-AsyncWebServer server(80);
-WebSocketsServer webSocket = WebSocketsServer(81);
+int led = LED_BUILTIN;
+int status = WL_IDLE_STATUS;
+WiFiServer server(80);
 
-#define USE_SERIAL Serial
+void setup()
+{
+  //Initialize serial and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial)
+  {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
 
-void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  Serial.println("Access Point Web Server");
 
-    switch(type) {
-        case WStype_DISCONNECTED:
-            USE_SERIAL.printf("[%u] Disconnected!\n", num);
-            break;
-        case WStype_CONNECTED:
-            {
-                IPAddress ip = webSocket.remoteIP(num);
-                USE_SERIAL.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
-            }
-            break;
-        case WStype_TEXT:
+  pinMode(led, OUTPUT); // set the LED pin mode
 
-            USE_SERIAL.printf("[%u] get Text: %s\n", num, payload);
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE)
+  {
+    Serial.println("Communication with WiFi module failed!");
+    // don't continue
+    while (true)
+      ;
+  }
 
-            // send data to all connected clients
-            webSocket.broadcastTXT(payload);
-            break;
-        
-    }
+  String fv = WiFi.firmwareVersion();
+  if (fv < WIFI_FIRMWARE_LATEST_VERSION)
+  {
+    Serial.println("Please upgrade the firmware");
+  }
 
+  // print the network name (SSID);
+  Serial.print("Creating access point named: ");
+  Serial.println(ssid);
+
+  // Create open network. Change this line if you want to create an WEP network:
+  status = WiFi.beginAP(ssid, pass);
+  if (status != WL_AP_LISTENING)
+  {
+    Serial.println("Creating access point failed");
+    // don't continue
+    while (true)
+      ;
+  }
+
+  // wait 10 seconds for connection:
+  delay(10000);
+
+  // start the web server on port 80
+  server.begin();
 }
 
-void setup() {
-    // USE_SERIAL.begin(921600);
-    USE_SERIAL.begin(115200);
+void loop()
+{
+  // compare the previous status to the current status
+  if (status != WiFi.status())
+  {
+    // it has changed update the variable
+    status = WiFi.status();
 
-    if(!SPIFFS.begin()){
-        USE_SERIAL.println("An Error has occurred while mounting SPIFFS");
-        return;
-    }
-
-    WiFi.softAP("chat", "password01");
-    
-    USE_SERIAL.println(WiFi.softAPIP());
-
-    /*WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED)
+    if (status == WL_AP_CONNECTED)
     {
-        delay(500);
-        Serial.print(".");
+      // a device has connected to the AP
+      Serial.println("Device connected to AP");
     }
-    USE_SERIAL.println(WiFi.localIP());*/
-
-
-    // Route for root / web page
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(SPIFFS, "/index.html", "text/html");
-    });
-
-    if(!MDNS.begin("chat")) {
-        USE_SERIAL.println("mDNS failed!");
-    } else {
-        USE_SERIAL.println("mDNS responder started!");
+    else
+    {
+      // a device has disconnected from the AP, and we are back in listening mode
+      Serial.println("Device disconnected from AP");
     }
-    MDNS.addService("http", "tcp", 80);
+  }
 
-     // Start server
-    server.begin();
+  WiFiClient client = server.available(); // listen for incoming clients
 
-    webSocket.begin();
-    webSocket.onEvent(webSocketEvent);
+  if (client)
+  {                               // if you get a client,
+    Serial.println("new client"); // print a message out the serial port
+    String currentLine = "";      // make a String to hold incoming data from the client
+    while (client.connected())
+    { // loop while the client's connected
+      if (client.available())
+      {                         // if there's bytes to read from the client,
+        char c = client.read(); // read a byte, then
+        Serial.write(c);        // print it out the serial monitor
+        if (c == '\n')
+        { // if the byte is a newline character
 
-    
+          // if the current line is blank, you got two newline characters in a row.
+          // that's the end of the client HTTP request, so send a response:
+          if (currentLine.length() == 0)
+          {
+            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
+            // and a content-type so the client knows what's coming, then a blank line:
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println();
+
+            // the content of the HTTP response follows the header:
+            client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
+            client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
+
+            int randomReading = analogRead(A1);
+            client.print("Random reading from analog pin: ");
+            client.print(randomReading);
+
+            // The HTTP response ends with another blank line:
+            client.println();
+            // break out of the while loop:
+            break;
+          }
+          else
+          { // if you got a newline, then clear currentLine:
+            currentLine = "";
+          }
+        }
+        else if (c != '\r')
+        {                   // if you got anything else but a carriage return character,
+          currentLine += c; // add it to the end of the currentLine
+        }
+
+        // Check to see if the client request was "GET /H" or "GET /L":
+        if (currentLine.endsWith("GET /H"))
+        {
+          digitalWrite(led, HIGH); // GET /H turns the LED on
+        }
+        if (currentLine.endsWith("GET /L"))
+        {
+          digitalWrite(led, LOW); // GET /L turns the LED off
+        }
+      }
+    }
+    // close the connection:
+    client.stop();
+    Serial.println("client disconnected");
+  }
 }
 
-void loop() {
-    MDNS.update();
-    webSocket.loop();
+void printWiFiStatus()
+{
+  // print the SSID of the network you're attached to:
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+
+  // print where to go in a browser:
+  Serial.print("To see this page in action, open a browser to http://");
+  Serial.println(ip);
 }
