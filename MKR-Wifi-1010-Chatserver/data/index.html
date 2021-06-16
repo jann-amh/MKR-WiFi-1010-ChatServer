@@ -4,203 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!--<style>
-        /*
-            colors
-            #055941
-            #36BF8D
-            #048C34
-            #89A61F
-            #0D0D0D
-        */
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
-        body, html {
-            height: 100%;
-        }
-        body {
-            background-image: url('background.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-        }
-        .blur {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            background: #14141465;
-            backdrop-filter: blur(2px);
-            z-index: 5;
-        }
-        .container {
-            z-index: 10;
-            color: #d1d1d1;
-            width: 50%;
-            
-        }
-        #msg-container {
-            display: flex;
-            flex-direction: column;
-        }
-        .msg {
-            background: rgba(255, 255, 255, 0.445);
-            padding: 10px;
-            margin: 10px 0;
-            display: inline-flex;
-            flex-direction: column;
-        }
-        .text, .user {
-            display: inline-flex;
-            padding: 2.5px 0;
-        }
-        
-        #msg-submit {
-            cursor: pointer;
-        }
-    </style>-->
-    <style>
-        .input {
-            display: flex;
-        }
-        .container {
-            max-width: 300px;
-        }
-        .msg {
-            display: flex;
-            margin: 10px 0;
-        }
-        .user {
-            min-width: 30%;
-            max-width: 30%;
-        }
-        .text {
-            padding-left: 10%;
-        }
-        .input {
-            display: flex;
-            justify-content: space-between;
-        }
-        #msg-input {
-            width: auto;
-        }
-        #msg-submit {
-            cursor: pointer;
-        }
-    </style>
+    <title>Chat UI</title>
+    <link href="fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!--<div class="blur"></div>-->
-    <div class="container">
-        <div id="msg-container">
-            <!--<div class="msg">
-                <div class="user">username</div>
-                <div class="text">msg</div>
-            </div>-->
+    
+    <div class="ui">
+
+        <div class="left">
+            
         </div>
-        <div class="input">
-            <input type="text" id="msg-input">
-            <div id="msg-submit">send</div>
+
+        <div class="chat">
+            <div class="messages scroll">
+
+            </div>
+            <div class="input">
+                <input type="text" name="" id="msg-input">
+                <button id="msg-submit">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
         </div>
-        
+
+        <div class="right">
+
+        </div>
+
     </div>
-        
-    <script>
-
-        var username = prompt("Please enter your name", "");
-
-        if(username && username.replace(/\s/g, '').length) {
-            
-            var date = Date.now();
-            var token = username + date;
-
-            console.log(token);
-
-            var container = document.getElementById('msg-container');
-            var input = document.getElementById('msg-input');
-            var submit = document.getElementById('msg-submit');
-
-            var connection = new WebSocket('ws://' + location.hostname + ':81/');
-
-            connection.onopen = function () {
-                container.innerHTML += '<div class="msg"><div class="user">bot</div><div class="text">You are connected!</div></div>';
-                connection.send('{"user" : "' + username + '", "token" : "' + token + '", "payload" : "Connected to chat..."}');           
-            };
-
-            connection.onerror = function (error) {
-                console.log('WebSocket Error ', error);
-                container.innerHTML += '<div class="msg"><div class="user">bot</div><div class="text">An error occured!</div></div>';
-            };
-
-            connection.onmessage = function (e) {
-                var msg = e.data;
-                
-                if(isJSON(msg)) {
-                    var msgObj = JSON.parse(msg);
-                    if(msgObj.token == token) {
-                        container.innerHTML += '<div class="msg"><div class="user">You</div><div class="text">' + msgObj.payload + '</div></div>';
-                    } else {
-                        container.innerHTML += '<div class="msg"><div class="user">' + msgObj.user + '</div><div class="text">' + msgObj.payload + '</div></div>';
-                    }
-                    
-                } else {
-                    container.innerHTML += '<p>' + msg + '</p>';
-                }
-            };
-
-            connection.onclose = function () {
-                console.log('WebSocket connection closed');
-                container.innerHTML += '<div class="msg"><div class="user">bot</div><div class="text">You are disconnected!</div></div>';
-            };
-
-
-            function isJSON(str) {
-                try {
-                    JSON.parse(str);
-                } catch(e) {
-                    return false;
-                }
-                return true;
-            }
-
-            function addMessage() {
-
-            }
-
-            // event listeners to send the message
-
-            submit.addEventListener("click", sendMsg);
-
-            input.addEventListener("keyup", function(event) {
-                if(event.keyCode === 13) {
-                    event.preventDefault();
-                    submit.click();
-                }
-            });
-            
-            function sendMsg() {
-                var msg = input.value;
-                if(!msg.replace(/\s/g, '').length) {
-                    return;
-                }
-                connection.send('{"user" : "' + username + '", "token" : "' + token + '", "payload" : "' + msg + '"}');
-                input.value = '';
-            }
-
-        }
-        
-    </script>
+    
 </body>
 </html>
-
-
