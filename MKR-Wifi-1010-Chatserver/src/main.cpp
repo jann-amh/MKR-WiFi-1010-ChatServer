@@ -1,26 +1,38 @@
 #include <WiFiNINA.h>
 
-char ssid[] = "Arduino_MKR_WIFI_1010";           // your network SSID (name)
-char pass[] = "ZULUL12345"; // your network password (use for WPA, or use as key for WEP)
-int keyIndex = 0;           // your network key Index number (needed only for WEP)
+char ssid[] = ""; //  your network SSID (name) between the " "
+char pass[] = "";    // your network password between the " "
+int keyIndex = 0;                       // your network key Index number (needed only for WEP)
+int status = WL_IDLE_STATUS;            //connection status
+WiFiServer server(80);                  //server socket
 
-int led = LED_BUILTIN;
-int status = WL_IDLE_STATUS;
-WiFiServer server(80);
+WiFiClient client = server.available();
 
-void setup()
+int ledPin = 2;
+
+void printWifiStatus()
 {
-  //Initialize serial and wait for port to open:
-  Serial.begin(9600);
-  while (!Serial)
-  {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  // print the SSID of the network you're attached to:
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
 
-  Serial.println("Access Point Web Server");
+  // print your board's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
 
-  pinMode(led, OUTPUT); // set the LED pin mode
+  // print the received signal strength:
+  long rssi = WiFi.RSSI();
+  Serial.print("signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
 
+  Serial.print("To see this page in action, open a browser to http://");
+  Serial.println(ip);
+}
+
+void enable_WiFi()
+{
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE)
   {
@@ -31,53 +43,29 @@ void setup()
   }
 
   String fv = WiFi.firmwareVersion();
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION)
+  if (fv < "1.0.0")
   {
     Serial.println("Please upgrade the firmware");
   }
-
-  // print the network name (SSID);
-  Serial.print("Creating access point named: ");
-  Serial.println(ssid);
-
-  // Create open network. Change this line if you want to create an WEP network:
-  status = WiFi.beginAP(ssid, pass);
-  if (status != WL_AP_LISTENING)
-  {
-    Serial.println("Creating access point failed");
-    // don't continue
-    while (true)
-      ;
-  }
-
-  // wait 10 seconds for connection:
-  delay(10000);
-
-  // start the web server on port 80
-  server.begin();
 }
 
-void loop()
+void connect_WiFi()
 {
-  // compare the previous status to the current status
-  if (status != WiFi.status())
+  // attempt to connect to Wifi network:
+  while (status != WL_CONNECTED)
   {
-    // it has changed update the variable
-    status = WiFi.status();
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    status = WiFi.begin(ssid, pass);
 
-    if (status == WL_AP_CONNECTED)
-    {
-      // a device has connected to the AP
-      Serial.println("Device connected to AP");
-    }
-    else
-    {
-      // a device has disconnected from the AP, and we are back in listening mode
-      Serial.println("Device disconnected from AP");
-    }
+    // wait 10 seconds for connection:
+    delay(10000);
   }
+}
 
-  WiFiClient client = server.available(); // listen for incoming clients
+void printWEB()
+{
 
   if (client)
   {                               // if you get a client,
@@ -96,15 +84,16 @@ void loop()
           // that's the end of the client HTTP request, so send a response:
           if (currentLine.length() == 0)
           {
+
             // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
             // and a content-type so the client knows what's coming, then a blank line:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
             client.println();
 
-            // the content of the HTTP response follows the header:
+            //create the buttons
             client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
-            client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
+            client.print("Click <a href=\"/L\">here</a> turn the LED off<br><br>");
 
             int randomReading = analogRead(A1);
             client.print("Random reading from analog pin: ");
@@ -125,14 +114,13 @@ void loop()
           currentLine += c; // add it to the end of the currentLine
         }
 
-        // Check to see if the client request was "GET /H" or "GET /L":
         if (currentLine.endsWith("GET /H"))
         {
-          digitalWrite(led, HIGH); // GET /H turns the LED on
+          digitalWrite(ledPin, HIGH);
         }
         if (currentLine.endsWith("GET /L"))
         {
-          digitalWrite(led, LOW); // GET /L turns the LED off
+          digitalWrite(ledPin, LOW);
         }
       }
     }
@@ -141,19 +129,26 @@ void loop()
     Serial.println("client disconnected");
   }
 }
-
-void printWiFiStatus()
+void setup()
 {
-  // print the SSID of the network you're attached to:
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
+  Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
+  while (!Serial)
+    ;
 
-  // print your WiFi shield's IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
-  Serial.println(ip);
+  enable_WiFi();
+  connect_WiFi();
 
-  // print where to go in a browser:
-  Serial.print("To see this page in action, open a browser to http://");
-  Serial.println(ip);
+  server.begin();
+  printWifiStatus();
+}
+
+void loop()
+{
+  client = server.available();
+
+  if (client)
+  {
+    printWEB();
+  }
 }
