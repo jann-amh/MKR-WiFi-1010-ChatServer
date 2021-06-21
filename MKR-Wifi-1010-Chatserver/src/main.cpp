@@ -1,14 +1,12 @@
 #include <WiFiNINA.h>
 
-char ssid[] = ""; //  your network SSID (name) between the " "
-char pass[] = "";    // your network password between the " "
-int keyIndex = 0;                       // your network key Index number (needed only for WEP)
-int status = WL_IDLE_STATUS;            //connection status
-WiFiServer server(80);                  //server socket
+char ssid[] = "";            //  your network SSID (name) between the " "
+char pass[] = "";            // your network password between the " "
+int keyIndex = 0;            // your network key Index number (needed only for WEP)
+int status = WL_IDLE_STATUS; //connection status
+WiFiServer server(80);       //server socket
 
 WiFiClient client = server.available();
-
-int ledPin = 2;
 
 void printWifiStatus()
 {
@@ -89,15 +87,6 @@ void printWEB()
             // and a content-type so the client knows what's coming, then a blank line:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
-            client.println();
-
-            //create the buttons
-            client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
-            client.print("Click <a href=\"/L\">here</a> turn the LED off<br><br>");
-
-            int randomReading = analogRead(A1);
-            client.print("Random reading from analog pin: ");
-            client.print(randomReading);
 
             // The HTTP response ends with another blank line:
             client.println();
@@ -113,15 +102,6 @@ void printWEB()
         {                   // if you got anything else but a carriage return character,
           currentLine += c; // add it to the end of the currentLine
         }
-
-        if (currentLine.endsWith("GET /H"))
-        {
-          digitalWrite(ledPin, HIGH);
-        }
-        if (currentLine.endsWith("GET /L"))
-        {
-          digitalWrite(ledPin, LOW);
-        }
       }
     }
     // close the connection:
@@ -132,9 +112,8 @@ void printWEB()
 void setup()
 {
   Serial.begin(9600);
-  pinMode(ledPin, OUTPUT);
-  while (!Serial)
-    ;
+
+  while (!Serial);
 
   enable_WiFi();
   connect_WiFi();
