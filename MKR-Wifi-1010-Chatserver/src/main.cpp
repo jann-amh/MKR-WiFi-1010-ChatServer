@@ -1,10 +1,11 @@
 #include <WiFiNINA.h>
+#include <arduino_secrets.h>
 
-char ssid[] = "";            //  your network SSID (name) between the " "
-char pass[] = "";            // your network password between the " "
-int keyIndex = 0;            // your network key Index number (needed only for WEP)
-int status = WL_IDLE_STATUS; //connection status
-WiFiServer server(80);       //server socket
+char ssid[] = SECRET_SSID;     // enter your SSID in the arduino_secrets.h file
+char pass[] = SECRET_PASSWORD; // enter your password in the arduino_secrets.h file
+int keyIndex = 0;              // your network key Index number (needed only for WEP)
+int status = WL_IDLE_STATUS;   //connection status
+WiFiServer server(80);         //server socket
 
 WiFiClient client = server.available();
 
@@ -87,9 +88,11 @@ void printWEB()
             // and a content-type so the client knows what's coming, then a blank line:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
+            client.println("hello world");
 
             // The HTTP response ends with another blank line:
             client.println();
+            client.println("test");
             // break out of the while loop:
             break;
           }
@@ -113,7 +116,8 @@ void setup()
 {
   Serial.begin(9600);
 
-  while (!Serial);
+  while (!Serial)
+    ;
 
   enable_WiFi();
   connect_WiFi();
