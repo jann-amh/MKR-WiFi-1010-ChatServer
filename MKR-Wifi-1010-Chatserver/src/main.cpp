@@ -91,7 +91,7 @@ void printWEB()
 
             // The HTTP response ends with another blank line:
             client.println();
-            client.println("test");
+            client.println("Hello World!");
             // break out of the while loop:
             break;
           }
@@ -115,8 +115,7 @@ void setup()
 {
   Serial.begin(9600);
 
-  while (!Serial)
-    ;
+  while (!Serial);
 
   enable_WiFi();
   connect_WiFi();
