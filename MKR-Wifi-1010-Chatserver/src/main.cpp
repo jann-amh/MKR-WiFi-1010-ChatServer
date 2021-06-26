@@ -88,7 +88,6 @@ void printWEB()
             // and a content-type so the client knows what's coming, then a blank line:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
-            client.println("hello world");
 
             // The HTTP response ends with another blank line:
             client.println();
