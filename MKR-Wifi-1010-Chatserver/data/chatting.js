@@ -8,7 +8,7 @@ if (username && username.replace(/\s/g, "").length) {
   var input = document.getElementById("msg-input");
   var submit = document.getElementById("msg-submit");
 
-  var connection = new WebSocket("ws://" + "192.168.188.46" + ":81/"); // location.hostname
+  var connection = new WebSocket("ws://" + location.hostname + ":81/");
 
   connection.onopen = function () {
     container.innerHTML +=
