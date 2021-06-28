@@ -1,38 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat UI</title>
-    <link href="fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
+    <link href="fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="ui">
+      <div class="left"></div>
 
-        <div class="left">
-            
+      <div class="chat">
+        <div id="msg-container" class="messages scroll">
+          <div class="msg">
+            <div class="msg-name">Jann</div>
+            <div class="msg-txt">Are u dumb or are u guys stupid!</div>
+            <div class="msg-time">09:15 AM</div>
+          </div>
+
+          <div class="msg">
+            <div class="msg-name">Jann</div>
+            <div class="msg-txt">?</div>
+            <div class="msg-time">09:15 AM</div>
+          </div>
+
+          <div class="msg own">
+            <div class="msg-txt">Hello guys!</div>
+            <div class="msg-time">11:50 PM</div>
+          </div>
+
+
+          <div class="msg">
+            <div class="msg-name">Jann</div>
+            <div class="msg-txt">Are u dumb or are u guys stupid!</div>
+            <div class="msg-time">09:15 AM</div>
+          </div>
+
+          <div class="msg">
+            <div class="msg-name">Jann</div>
+            <div class="msg-txt">?</div>
+            <div class="msg-time">09:15 AM</div>
+          </div>
+
+          <div class="msg own">
+            <div class="msg-txt">Hello guys!</div>
+            <div class="msg-time">11:50 PM</div>
+          </div>
+
+          <div class="msg">
+            <div class="msg-name">Jann</div>
+            <div class="msg-txt">Are u dumb or are u guys stupid!</div>
+            <div class="msg-time">09:15 AM</div>
+          </div>
+
+
         </div>
 
-        <div class="chat">
-            <div class="messages scroll">
-
-            </div>
-            <div class="input">
-                <input type="text" name="" id="msg-input">
-                <button id="msg-submit">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
+        <div class="input">
+          <input type="text" name="" id="msg-input" placeholder="Type your message text here..." />
+          <button id="msg-submit">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
+      </div>
 
-        <div class="right">
-
-        </div>
-
+      <div class="right"></div>
     </div>
-    
-</body>
+    <script src="chatting.js"></script>
+    <script src="style.js"></script>
+  </body>
 </html>
