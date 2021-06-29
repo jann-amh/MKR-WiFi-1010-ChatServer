@@ -451,5 +451,5 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 *.tlog
 
-/include/arduino_secrets.h
+include/arduino_secrets.h
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,c++,platformio,windows,visualstudiocode
