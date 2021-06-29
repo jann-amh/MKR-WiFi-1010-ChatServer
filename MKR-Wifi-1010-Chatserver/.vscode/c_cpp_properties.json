@@ -10,6 +10,7 @@
             "includePath": [
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
+                "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/SerialFlash",
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/WiFiNINA/src",
                 "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
                 "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ArduinoBLE/src",
@@ -39,6 +40,7 @@
                 "path": [
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/include",
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/src",
+                    "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/SerialFlash",
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/WiFiNINA/src",
                     "C:/Users/janna/.platformio/packages/framework-arduino-samd/libraries/SPI",
                     "D:/Git/MKR-Wifi-1010-Projects/MKR-Wifi-1010-Chatserver/.pio/libdeps/mkrwifi1010/ArduinoBLE/src",

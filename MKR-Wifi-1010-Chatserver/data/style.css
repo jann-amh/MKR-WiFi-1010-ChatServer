@@ -64,7 +64,7 @@ body,
 }
 
 .msg .msg-txt {
-  background: #FF4B6D;
+  background: #ff4b6d;
   color: #ffffff;
   width: fit-content;
   display: flex;
@@ -76,7 +76,6 @@ body,
   border-radius: 17.5px;
   border-bottom-left-radius: 0;
   word-break: break-all;
-  
 }
 
 .msg .msg-time {
@@ -111,7 +110,6 @@ body,
   border-bottom-left-radius: 17.5px;
 }
 
-
 /* input section */
 
 .input {
@@ -128,14 +126,14 @@ body,
 #msg-input,
 #msg-submit {
   background: none;
-  border: 2px solid #FF4B6D;
+  border: 2px solid #ff4b6d;
   border-radius: 17.5px;
 }
 
 #msg-input:focus,
 #msg-submit:focus {
   outline: none;
-  background: #FF4B6D;
+  background: #ff4b6d;
 }
 
 #msg-input {
@@ -155,5 +153,5 @@ body,
 }
 
 button.filled {
-  background: #FF4B6D !important;
+  background: #ff4b6d !important;
 }
